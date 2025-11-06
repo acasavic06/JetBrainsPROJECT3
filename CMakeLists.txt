@@ -3,7 +3,11 @@ project(NewtonFractal)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(ISPC_EXECUTABLE "C:/Users/Aleksandar/Downloads/ispc-trunk-windows/bin/ispc.exe")
+find_program(ISPC_EXECUTABLE ispc)
+if(NOT ISPC_EXECUTABLE)
+    message(FATAL_ERROR "ISPC compiler not found. Please install ISPC and add it to your PATH.")
+endif()
+
 
 set(ISPC_SOURCE ${CMAKE_SOURCE_DIR}/newton_fractal.ispc)
 set(ISPC_OBJECT ${CMAKE_BINARY_DIR}/newton_fractal_ispc.obj)
