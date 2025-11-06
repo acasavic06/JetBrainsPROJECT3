@@ -10,11 +10,12 @@ set(ISPC_OBJECT ${CMAKE_BINARY_DIR}/newton_fractal_ispc.obj)
 set(ISPC_HEADER ${CMAKE_BINARY_DIR}/newton_fractal_ispc.h)
 
 add_custom_command(
-        OUTPUT ${CMAKE_BINARY_DIR}/newton_fractal_ispc.obj
-       COMMAND ${ISPC_EXECUTABLE} ${CMAKE_SOURCE_DIR}/newton_fractal.ispc -o ${CMAKE_BINARY_DIR}/newton_fractal_ispc.obj -h ${CMAKE_BINARY_DIR}/newton_fractal_ispc.h
-        DEPENDS ${CMAKE_SOURCE_DIR}/newton_fractal.ispc
+        OUTPUT ${ISPC_OBJECT} ${ISPC_HEADER}
+        COMMAND ${ISPC_EXECUTABLE} ${ISPC_SOURCE} -o ${ISPC_OBJECT} -h ${ISPC_HEADER}
+        DEPENDS ${ISPC_SOURCE}
         COMMENT "Compiling ISPC"
 )
 
-add_executable(NewtonFractal main.cpp ${CMAKE_BINARY_DIR}/newton_fractal.obj)
+add_executable(NewtonFractal main.cpp ${ISPC_OBJECT})
+
 include_directories(${CMAKE_BINARY_DIR})
